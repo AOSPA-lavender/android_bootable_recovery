@@ -490,6 +490,11 @@ int main(int argc, char** argv) {
     device->RemoveMenuItemForAction(Device::MOUNT_SYSTEM);
   }
 
+  if (android::base::GetProperty("ro.build.characteristics", "").find("nosdcard")
+      != std::string::npos) {
+    device->RemoveMenuItemForAction(Device::APPLY_SDCARD);
+  }
+
   ui->SetBackground(RecoveryUI::NONE);
   if (show_text) ui->ShowText(true);
 
